@@ -7,8 +7,10 @@
 #include<sys/types.h>
 #include<sys/wait.h>
 #include<string.h>
+#include<errno.h>
 
 extern char **environ;
+extern char *program_invocation_name;
 
 void executeByPath(char *);
 char *getCommand(void);

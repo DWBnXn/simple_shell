@@ -35,7 +35,10 @@ void executeByPath(char *cmd)
 		cmdv[0] = cmd;
 		if (execve(cmd, cmdv, environ) == -1)
 		{
-			perror("Error:");
+			char *message = strcat(strdup(program_invocation_name), ": ");
+
+			strcat(message, cmd);
+			perror(message);
 			exit(0);
 		}
 	} else
