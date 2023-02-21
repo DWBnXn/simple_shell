@@ -5,24 +5,11 @@
  * @av: argument vector
  * Return: 0 (success)
  */
-int main(int ac, char **av)
+int main(void)
 {
-	int i;
 	char *cmd;
 
-	if (ac > 1)
-	{
-		/* Execute All commands passed as arguments */
-		i = 0;
-		while (av[i])
-		{
-			if (i == 0)
-				continue;
-			executeByPath(av[i]);
-			i++;
-		}
-		return (0);
-	}
+		printf("interactive");
 	/* enter interactive Mode */
 	while (1)
 	{
@@ -49,7 +36,10 @@ void executeByPath(char *cmd)
 	{
 		cmdv[0] = cmd;
 		if (execve(cmd, cmdv, NULL) == -1)
+		{
 			perror("Error:");
+			exit(0);
+		}
 	} else
 	{
 		wait(NULL);
