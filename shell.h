@@ -8,6 +8,8 @@
 #include<sys/wait.h>
 #include<string.h>
 
+extern char **environ;
+
 void executeByPath(char *);
 char *getCommand(void);
 

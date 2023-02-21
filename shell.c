@@ -1,20 +1,18 @@
 #include"shell.h"
 /**
  * main - simple shell
- * @ac: argument count
- * @av: argument vector
  * Return: 0 (success)
  */
 int main(void)
 {
 	char *cmd;
 
-		printf("interactive");
-	/* enter interactive Mode */
 	while (1)
 	{
-		printf("($) ");
+		printf("#cisfun$ ");
 		cmd = getCommand();
+		if (cmd == NULL)
+			exit(1);
 		executeByPath(cmd);
 	}
 	return (0);
@@ -35,7 +33,7 @@ void executeByPath(char *cmd)
 	if (pid == 0)
 	{
 		cmdv[0] = cmd;
-		if (execve(cmd, cmdv, NULL) == -1)
+		if (execve(cmd, cmdv, environ) == -1)
 		{
 			perror("Error:");
 			exit(0);
@@ -51,11 +49,13 @@ void executeByPath(char *cmd)
  */
 char *getCommand(void)
 {
-	char *line;
+	char *line = NULL;
 	size_t len;
 
 	if (getline(&line, &len, stdin) == -1)
-		perror("Readline Error");
+	{
+		return (NULL);
+	}
 	line[strcspn(line, "\n")] = '\0';
 	return (line);
 }
