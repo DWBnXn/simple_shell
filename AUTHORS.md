@@ -3,4 +3,5 @@
 # See hack/generate-authors.sh to make modifications.
 
 Obiora Daniel <obioradaniel19@gmail.com>
-Emmanuel Nwafor < nwaforemmanuel005@gmail.com>
+
+Emmanuel Nwafor <nwaforemmanuel005@gmail.com>
