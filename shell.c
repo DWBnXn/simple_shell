@@ -14,6 +14,7 @@ int main(void)
 		if (cmd == NULL)
 			exit(1);
 		executeByPath(cmd);
+		free(cmd);
 	}
 	return (0);
 }
@@ -29,17 +30,16 @@ void executeByPath(char *cmd)
 
 	pid = fork();
 	if (pid == -1)
+	{
 		perror("Fork failed");
-	if (pid == 0)
+		exit(1);
+	} else if (pid == 0)
 	{
 		cmdv[0] = cmd;
 		if (execve(cmd, cmdv, environ) == -1)
 		{
-			char *message = strcat(strdup(program_invocation_name), ": ");
-
-			strcat(message, cmd);
-			perror(message);
-			exit(0);
+			perror(program_invocation_name);
+			exit(1);
 		}
 	} else
 	{
